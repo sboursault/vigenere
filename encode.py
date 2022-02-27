@@ -1,11 +1,26 @@
 import vigenere
+from os.path import join
 
-encoded_file = 'encoded/tatooine.txt'
-message = "bonjour"
-key = '123'
+messages = {
+    "tatooine": {
+        "message": "bonjour Jaba",
+        "key": "1234"
+    },
+    "hoth": {
+        "message": "glagla",
+        "key": "5678"
+    }
+}
 
 
-encoded_message = vigenere.encode(key, message)
+def write_file(directory, filename, content):
+    file_path = join(directory, filename)
+    with open(file_path, 'w') as f:
+        f.write(content)
 
-with open(encoded_file, 'w') as f:
-    f.write(encoded_message)
+
+for team in messages:
+    key = messages[team]['key']
+    message = messages[team]['message']
+    encoded_message = vigenere.encode(key, f"___{message}___")
+    write_file('encoded', f'{team}.txt', encoded_message)
