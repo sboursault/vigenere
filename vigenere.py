@@ -1,20 +1,42 @@
+alphabet = " abcdefghijklmnopqrstuvwxyzABSCDEFGHIJKLMNOPQRSTUVWXYZ123456789,;:!?./§-_&"
 
 
-def encode(key, string):
+def validate(input: str):
+    for i in range(len(input)):
+        if (input[i] not in alphabet):
+            raise Exception(f"Unsupported character: '{input[i]}'")
+
+
+def encode(key: str, message: str) -> str:
+    key = normalize(key)
+    message = normalize(message)
     encoded_chars = []
-    for i in range(len(string)):
+    validate(key)
+    validate(message)
+    for i in range(len(message)):
         key_c = key[i % len(key)]
-        encoded_c = chr(ord(string[i]) + ord(key_c) % 256)
+        encoded_c = alphabet[(alphabet.index(message[i]) + alphabet.index(key_c)) % len(alphabet)]
         encoded_chars.append(encoded_c)
-    encoded_string = ''.join(encoded_chars)
-    return encoded_string
+    return ''.join(encoded_chars)
 
 
-def decode(key, string):
+def decode(key: str, encoded: str) -> str:
+    key = normalize(key)
+    encoded = normalize(encoded)
     encoded_chars = []
-    for i in range(len(string)):
+    for i in range(len(encoded)):
         key_c = key[i % len(key)]
-        encoded_c = chr((ord(string[i]) - ord(key_c) + 256) % 256)
+        encoded_c = alphabet[(alphabet.index(encoded[i]) - alphabet.index(key_c)) % len(alphabet)]
         encoded_chars.append(encoded_c)
-    encoded_string = ''.join(encoded_chars)
-    return encoded_string
+    return ''.join(encoded_chars)
+
+
+def normalize(key):
+    if len(key) == 0:
+        key = ' '
+    return key
+
+
+# test = encode("7895", "voisdffg777``la voila")
+# print(test)
+# print(decode("7895", test))
