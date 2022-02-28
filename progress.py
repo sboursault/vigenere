@@ -9,7 +9,7 @@ def update_progress(count, total):
     percents = round(100.0 * count / float(total), 1)
     bar = '=' * filled_len + '-' * (bar_len - filled_len)
 
-    sys.stdout.write('\r[%s] %s%s' % (bar, percents, '%'))
+    sys.stdout.write(f'\r[{bar}] {percents}%')
     sys.stdout.flush()
 
 
