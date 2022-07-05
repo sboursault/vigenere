@@ -1,4 +1,4 @@
-alphabet = " abcdefghijklmnopqrstuvwxyzABSCDEFGHIJKLMNOPQRSTUVWXYZ123456789,;:!?./§-_&"
+alphabet = " abcdefghijklmnopqrstuvwxyzABSCDEFGHIJKLMNOPQRSTUVWXYZ1234567890,;:!?./§-_&"
 
 
 def validate(input: str):
