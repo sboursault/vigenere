@@ -13,11 +13,18 @@ def update_progress(count, total):
     sys.stdout.flush()
 
 
-def fake_progress():
+def fake_progress(speed: int):
+    if speed > 10:
+        raise Exception('speed must be between 0 and 1')
+
+    time.sleep(1)
+
     for i in range(101):
-        time.sleep(.07)
+        time.sleep(0.1 - speed / 100)
         update_progress(i, 100)
+
     time.sleep(1)
 
 
-fake_progress()
+if __name__ == '__main__':
+    fake_progress(9)
